@@ -16,9 +16,11 @@ jobs:
 
       - name: Setup SSH Key
         run: |
-          mkdir -p ~/.ssh
-          printf "%s" "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+   	  mkdir -p ~/.ssh
+   	  cat << 'EOF' > ~/.ssh/id_rsa
+   	  ${{ secrets.EC2_SSH_KEY }}
+   	  EOF
+   	  chmod 600 ~/.ssh/id_rsa
 
           echo "Checking key..."
           head -1 ~/.ssh/id_rsa
